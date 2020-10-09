@@ -1,8 +1,11 @@
 package ibm
 
 import (
+	"encoding/base64"
 	"fmt"
+	"io/ioutil"
 	"net/url"
+	"path/filepath"
 
 	"github.com/IBM-Cloud/bluemix-go/api/icd/icdv4"
 	"github.com/IBM-Cloud/bluemix-go/api/resource/resourcev1/controller"
@@ -108,6 +111,11 @@ func dataSourceIBMDatabaseInstance() *schema.Resource {
 						},
 					},
 				},
+			},
+			"cert_file_path": {
+				Description: "The absolute path to the certificate pem file",
+				Type:        schema.TypeString,
+				Computed:    true,
 			},
 			"connectionstrings": {
 				Type:     schema.TypeList,
@@ -535,6 +543,20 @@ func dataSourceIBMDatabaseInstanceRead(d *schema.ResourceData, meta interface{})
 		connectionStrings = append(connectionStrings, csEntry)
 	}
 	d.Set("connectionstrings", flattenConnectionStrings(connectionStrings))
+
+	connStr := connectionStrings[0]
+	certFile, err := filepath.Abs(connStr.CertName + ".pem")
+	if err != nil {
+		return fmt.Errorf("Error generating certificate file path: %s", err)
+	}
+	content, err := base64.StdEncoding.DecodeString(connStr.CertBase64)
+	if err != nil {
+		return fmt.Errorf("Error decoding certificate content: %s", err)
+	}
+	if err := ioutil.WriteFile(certFile, content, 0644); err != nil {
+		return fmt.Errorf("Error writing certificate to file: %s", err)
+	}
+	d.Set("cert_file_path", certFile)
 
 	return nil
 }
