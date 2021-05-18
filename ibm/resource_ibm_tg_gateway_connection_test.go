@@ -5,12 +5,13 @@ package ibm
 
 import (
 	"fmt"
-	"github.com/IBM/networking-go-sdk/transitgatewayapisv1"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"log"
 	"testing"
+
+	"github.com/IBM/networking-go-sdk/transitgatewayapisv1"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/acctest"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
 
 func TestAccIBMTransitGatewayConnection_basic(t *testing.T) {

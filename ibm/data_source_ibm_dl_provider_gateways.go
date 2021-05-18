@@ -4,10 +4,11 @@
 package ibm
 
 import (
-	dlProviderV2 "github.com/IBM/networking-go-sdk/directlinkproviderv2"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"log"
 	"time"
+
+	dlProviderV2 "github.com/IBM/networking-go-sdk/directlinkproviderv2"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 )
 
 const (
