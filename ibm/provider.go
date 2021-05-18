@@ -9,14 +9,15 @@ import (
 	"time"
 
 	"github.com/IBM-Cloud/terraform-provider-ibm/ibm/internal/mutexkv"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 )
 
 // This is a global MutexKV for use within this plugin.
 var ibmMutexKV = mutexkv.NewMutexKV()
 
-// Provider returns a *schema.Provider.
-func Provider() *schema.Provider {
+// Provider returns a terraform.ResourceProvider.
+func Provider() terraform.ResourceProvider {
 	return &schema.Provider{
 		Schema: map[string]*schema.Schema{
 			"bluemix_api_key": {
