@@ -50,7 +50,7 @@ require (
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/renier/xmlrpc v0.0.0-20170708154548-ce4a1a486c03 // indirect
 	github.com/satori/go.uuid v1.2.0
-	github.com/softlayer/softlayer-go v0.0.0-20190814165317-b9062a914a22
+	github.com/softlayer/softlayer-go v1.0.3
 	github.ibm.com/ibmcloud/kubernetesservice-go-sdk v0.0.0-00010101000000-000000000000
 	go.mongodb.org/mongo-driver v1.5.2 // indirect
 	golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2
@@ -58,6 +58,6 @@ require (
 	gotest.tools v2.2.0+incompatible
 )
 
-replace github.com/softlayer/softlayer-go v0.0.0-20190814165317-b9062a914a22 => ./common/github.com/softlayer/softlayer-go
+replace github.com/softlayer/softlayer-go => github.com/hasueki/softlayer-go v1.0.3-terraform
 
-replace github.ibm.com/ibmcloud/kubernetesservice-go-sdk => ./common/github.ibm.com/ibmcloud/kubernetesservice-go-sdk
+replace github.ibm.com/ibmcloud/kubernetesservice-go-sdk => github.com/hasueki/kubernetesservice-go-sdk v0.0.1
