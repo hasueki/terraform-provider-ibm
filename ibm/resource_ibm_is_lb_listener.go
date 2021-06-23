@@ -252,12 +252,27 @@ func lbListenerCreate(d *schema.ResourceData, meta interface{}, lbID, protocol, 
 	if err != nil {
 		return err
 	}
-	options := &vpcv1.CreateLoadBalancerListenerOptions{
-		LoadBalancerID:      &lbID,
-		Port:                &port,
-		Protocol:            &protocol,
-		AcceptProxyProtocol: &acceptProxyProtocol,
+
+	getOptions := &vpcv1.GetLoadBalancerOptions{
+		ID: &lbID,
 	}
+	lb, _, err := sess.GetLoadBalancer(getOptions)
+	if err != nil {
+		return fmt.Errorf(
+			"Error checking for load balancer (%s) profile: %s", lbID, err)
+	}
+
+	options := &vpcv1.CreateLoadBalancerListenerOptions{
+		LoadBalancerID: &lbID,
+		Port:           &port,
+		Protocol:       &protocol,
+	}
+
+	nlbProfileName := "network-fixed"
+	if *lb.Profile.Name != nlbProfileName {
+		options.AcceptProxyProtocol = &acceptProxyProtocol
+	}
+
 	if defPool != "" {
 		options.DefaultPool = &vpcv1.LoadBalancerPoolIdentity{
 			ID: &defPool,
